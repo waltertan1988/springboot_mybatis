@@ -36,4 +36,13 @@ public class XmlTests {
 			log.info(employee.toString());
 		}
 	}
+
+    @Test
+    public void testAlias() {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            EmployeeMapper employeeMapper = session.getMapper(EmployeeMapper.class);
+            Employee employee = employeeMapper.getEmployeeByUsername("0009785");
+            log.info(employee.toString());
+        }
+    }
 }
