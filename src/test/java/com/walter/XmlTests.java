@@ -1,7 +1,7 @@
 package com.walter;
 
 import com.walter.domain.Employee;
-import com.walter.mapper.EmployeeMapper;
+import com.walter.mapper.EmployeeMapperByXml;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -23,7 +23,7 @@ public class XmlTests {
 	public void testWithoutMapperGetEmployeeById() {
 		try (SqlSession session = sqlSessionFactory.openSession()) {
 		    // statement = [<mapperXmlNamespace>.]<statementId>
-			Employee employee = session.selectOne("com.walter.mapper.EmployeeMapper.getEmployeeById", 1);
+			Employee employee = session.selectOne("com.walter.mapper.EmployeeMapperByXml.getEmployeeById", 1);
 			log.info(employee.toString());
 		}
 	}
@@ -31,8 +31,8 @@ public class XmlTests {
 	@Test
 	public void testWithMapperGetEmployeeById() {
 		try (SqlSession session = sqlSessionFactory.openSession()) {
-			EmployeeMapper employeeMapper = session.getMapper(EmployeeMapper.class);
-			Employee employee = employeeMapper.getEmployeeById(1L);
+			EmployeeMapperByXml mapper = session.getMapper(EmployeeMapperByXml.class);
+			Employee employee = mapper.getEmployeeById(1L);
 			log.info(employee.toString());
 		}
 	}
@@ -40,8 +40,8 @@ public class XmlTests {
     @Test
     public void testAlias() {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            EmployeeMapper employeeMapper = session.getMapper(EmployeeMapper.class);
-            Employee employee = employeeMapper.getEmployeeByUsername("0009785");
+            EmployeeMapperByXml mapper = session.getMapper(EmployeeMapperByXml.class);
+            Employee employee = mapper.getEmployeeByUsername("0009785");
             log.info(employee.toString());
         }
     }
