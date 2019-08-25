@@ -1,6 +1,7 @@
 package com.walter;
 
 import com.walter.domain.Employee;
+import com.walter.mapper.EmployeeMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -19,12 +20,20 @@ public class XmlTests {
 	private SqlSessionFactory sqlSessionFactory;
 
 	@Test
-	public void testGetEmployeeById() {
+	public void testWithoutMapperGetEmployeeById() {
 		try (SqlSession session = sqlSessionFactory.openSession()) {
 		    // statement = [<mapperXmlNamespace>.]<statementId>
-			Employee employee = session.selectOne("com.walter.EmployeeMapper.selectEmployee", 1);
+			Employee employee = session.selectOne("com.walter.mapper.EmployeeMapper.getEmployeeById", 1);
 			log.info(employee.toString());
 		}
 	}
 
+	@Test
+	public void testWithMapperGetEmployeeById() {
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			EmployeeMapper employeeMapper = session.getMapper(EmployeeMapper.class);
+			Employee employee = employeeMapper.getEmployeeById(1L);
+			log.info(employee.toString());
+		}
+	}
 }

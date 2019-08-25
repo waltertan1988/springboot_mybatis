@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.walter.EmployeeMapper">
-    <select id="selectEmployee" resultType="com.walter.domain.Employee">
+<mapper namespace="com.walter.mapper.EmployeeMapper">
+    <select id="getEmployeeById" resultType="com.walter.domain.Employee">
         select
           id,
           username,
