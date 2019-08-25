@@ -7,7 +7,7 @@
         select * from EMPLOYEE where id = #{id}
     </select>
 
-    <select id="getEmployeeByUsername" resultType="employee">
+    <select id="getEmployeeByUsername" resultType="employee" databaseId="mysql">
         select * from EMPLOYEE where username = #{username}
     </select>
 </mapper>
