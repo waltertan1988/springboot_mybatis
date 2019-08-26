@@ -12,9 +12,27 @@
     </select>
 
     <!--<insert id="addOne" parameterType="com.walter.domain.Employee">  parameterType可省略-->
-    <insert id="addOne">
+    <insert id="addOne" useGeneratedKeys="true" keyProperty="id" databaseId="mysql">
+        <!--useGeneratedKeys结合keyProperty，让主键自增值自动回填到Employee对象id属性。（注：自增不适用于Oracle）-->
         insert into EMPLOYEE(username, user_real_name, gender, email)
         values (#{username}, #{userRealName}, #{gender}, #{email})
+    </insert>
+
+    <insert id="addOne" databaseId="oracle">
+        <!--selectKey，让主键序列值自动回填到Employee对象id属性。（注：适用于Oracle）-->
+        <selectKey keyProperty="id" order="BEFORE" resultType="Integer">
+            select SEQ_EMPLOYEE_ID.nextval from dual
+        </selectKey>
+        insert into EMPLOYEE(id, username, user_real_name, gender, email)
+        values (#{id}, #{username}, #{userRealName}, #{gender}, #{email})
+
+        <!-- 上面等价于下面的写法
+        <selectKey keyProperty="id" order="AFTER" resultType="Integer">
+            select SEQ_EMPLOYEE_ID.currval from dual
+        </selectKey>
+        insert into EMPLOYEE(id, username, user_real_name, gender, email)
+        values (SEQ_EMPLOYEE_ID.nextval, #{username}, #{userRealName}, #{gender}, #{email})
+        -->
     </insert>
 
     <update id="updateOneByUsername">

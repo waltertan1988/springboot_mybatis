@@ -60,6 +60,7 @@ public class XmlTests {
 		this.handle(mapper -> {
 			Long num = mapper.addOne(employee);
 			log.info(num.toString());
+			log.info(employee.toString());
 		});
 	}
 
