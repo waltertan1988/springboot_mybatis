@@ -7,4 +7,10 @@ public interface EmployeeMapperByXml {
     Employee getEmployeeById(Long id);
 
     Employee getEmployeeByUsername(String username);
+
+    Long addOne(Employee employee);
+
+    Boolean updateOneByUsername(Employee employee);
+
+    Integer deleteOneByUsername(String username);
 }

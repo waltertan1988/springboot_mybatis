@@ -10,4 +10,22 @@
     <select id="getEmployeeByUsername" resultType="employee" databaseId="mysql">
         select * from EMPLOYEE where username = #{username}
     </select>
+
+    <!--<insert id="addOne" parameterType="com.walter.domain.Employee">  parameterType可省略-->
+    <insert id="addOne">
+        insert into EMPLOYEE(username, user_real_name, gender, email)
+        values (#{username}, #{userRealName}, #{gender}, #{email})
+    </insert>
+
+    <update id="updateOneByUsername">
+        update EMPLOYEE set
+            user_real_name = #{userRealName},
+            gender = #{gender},
+            email = #{email}
+        where username = #{username}
+    </update>
+
+    <delete id="deleteOneByUsername">
+        delete from EMPLOYEE where username = #{username}
+    </delete>
 </mapper>
