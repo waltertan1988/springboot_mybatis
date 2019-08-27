@@ -80,4 +80,12 @@ public class XmlTests {
 			log.info(num.toString());
 		});
 	}
+
+	@Test
+	public void testIsIdMatchUsername(){
+		this.handle(mapper -> {
+			Boolean isIdMatchUsername = mapper.isIdMatchUsername(1L, "0009785");
+			log.info(isIdMatchUsername.toString());
+		});
+	}
 }

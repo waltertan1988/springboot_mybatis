@@ -46,4 +46,8 @@
     <delete id="deleteOneByUsername">
         delete from EMPLOYEE where username = #{username}
     </delete>
+
+    <select id="isIdMatchUsername" resultType="Boolean">
+        select count(1) from EMPLOYEE where id = #{id} and username = #{username}
+    </select>
 </mapper>
