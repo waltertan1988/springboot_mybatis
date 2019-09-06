@@ -25,6 +25,12 @@
         -->
     </resultMap>
 
+    <resultMap id="employeeWithDepartmentResultMapBy2Steps" type="com.walter.domain.Employee">
+        <id column="eid" property="id"/>
+        <!--使用association的分步查询， select="<子对象mapper命名空间>.<mapperid>", column指定关联查询列-->
+        <association property="department" select="com.walter.mapper.DepartmentMapperByXml.getDepartmentByCode" column="dept_code"/>
+    </resultMap>
+
     <select id="getEmployeeByUsernameUsingResultMap" resultMap="employeeResultMap">
         select * from EMPLOYEE where username = #{xxx}
     </select>
@@ -90,6 +96,21 @@
     </select>
 
     <select id="findWithDepartmentByUserRealNameUsingResultMap" resultMap="employeeWithDepartmentResultMap">
+        SELECT
+            e.id eid,
+            e.username,
+            e.user_real_name,
+            e.gender,
+            e.email,
+            e.dept_code,
+            d.id dept_id,
+            d.name dept_name
+        FROM employee e, department d
+        WHERE e.dept_code = d.code
+        AND user_real_name like #{xxx}
+    </select>
+
+    <select id="findWithDepartmentByUserRealNameUsingResultMapBy2Steps" resultMap="employeeWithDepartmentResultMapBy2Steps">
         SELECT
             e.id eid,
             e.username,

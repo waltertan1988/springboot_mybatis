@@ -123,8 +123,13 @@ public class XmlTests {
 
 	@Test
 	public void testFindWithDepartmentByUserRealNameUsingResultMap(){
-		this.handle(mapper -> {
-			mapper.findWithDepartmentByUserRealNameUsingResultMap("%a%").forEach(employee -> log.info(employee.toString()));
-		});
+		this.handle(mapper -> mapper.findWithDepartmentByUserRealNameUsingResultMap("%a%")
+				.forEach(employee -> log.info(employee.toString())));
+	}
+
+	@Test
+	public void testFindWithDepartmentByUserRealNameUsingResultMapBy2Steps(){
+		this.handle(mapper -> mapper.findWithDepartmentByUserRealNameUsingResultMapBy2Steps("%a%")
+				.forEach(employee -> log.info(employee.toString())));
 	}
 }
