@@ -1,6 +1,8 @@
 package com.walter;
 
+import com.walter.domain.Department;
 import com.walter.domain.Employee;
+import com.walter.mapper.DepartmentMapperByXml;
 import com.walter.mapper.EmployeeMapperByXml;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
@@ -22,13 +24,21 @@ public class XmlTests {
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 
-	private void handle(Consumer<EmployeeMapperByXml> consumer){
+	private void handleEmployee(Consumer<EmployeeMapperByXml> consumer){
 		try (SqlSession session = sqlSessionFactory.openSession()) {
 			EmployeeMapperByXml mapper = session.getMapper(EmployeeMapperByXml.class);
 			consumer.accept(mapper);
 			session.commit();
 		}
 	}
+
+    private void handleDepartment(Consumer<DepartmentMapperByXml> consumer){
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            DepartmentMapperByXml mapper = session.getMapper(DepartmentMapperByXml.class);
+            consumer.accept(mapper);
+            session.commit();
+        }
+    }
 
 	@Test
 	public void testWithoutMapperGetEmployeeById() {
@@ -41,7 +51,7 @@ public class XmlTests {
 
 	@Test
 	public void testWithMapperGetEmployeeById() {
-		this.handle(mapper -> {
+		this.handleEmployee(mapper -> {
 			Employee employee = mapper.getEmployeeById(1L);
 			log.info(employee.toString());
 		});
@@ -49,7 +59,7 @@ public class XmlTests {
 
     @Test
     public void testAlias() {
-        this.handle(mapper -> {
+        this.handleEmployee(mapper -> {
 			Employee employee = mapper.getEmployeeByUsername("0009785");
 			log.info(employee.toString());
 		});
@@ -58,7 +68,7 @@ public class XmlTests {
     @Test
     public void testAddOne(){
 		Employee employee = new Employee("0008792", "CathyChen",'M',"Cathy.Chen@xxx.com", null);
-		this.handle(mapper -> {
+		this.handleEmployee(mapper -> {
 			Long num = mapper.addOne(employee);
 			log.info(num.toString());
 			log.info(employee.toString());
@@ -68,7 +78,7 @@ public class XmlTests {
 	@Test
 	public void testUpdateOneByUsername(){
 		Employee employee = new Employee("0008792", "Cathy Chen",'F',"Cathy.Chen@infinitus.com.cn", null);
-		this.handle(mapper -> {
+		this.handleEmployee(mapper -> {
 			Boolean success = mapper.updateOneByUsername(employee);
 			log.info(success.toString());
 		});
@@ -76,7 +86,7 @@ public class XmlTests {
 
 	@Test
 	public void testDeleteOneByUsername(){
-		this.handle(mapper -> {
+		this.handleEmployee(mapper -> {
 			Integer num = mapper.deleteOneByUsername("0008792");
 			log.info(num.toString());
 		});
@@ -84,7 +94,7 @@ public class XmlTests {
 
 	@Test
 	public void testIsIdMatchUsername(){
-		this.handle(mapper -> {
+		this.handleEmployee(mapper -> {
 			Boolean isIdMatchUsername = mapper.isIdMatchUsername(1L, "0009785");
 			log.info(isIdMatchUsername.toString());
 		});
@@ -92,14 +102,14 @@ public class XmlTests {
 
 	@Test
 	public void testFindByUserRealName(){
-		this.handle(mapper -> {
+		this.handleEmployee(mapper -> {
 			mapper.findByUserRealName("%a%").forEach(employee -> log.info(employee.toString()));
 		});
 	}
 
 	@Test
 	public void testGetEmployeeMapById(){
-		this.handle(mapper -> {
+		this.handleEmployee(mapper -> {
 			Map<String, Object> employeeMap = mapper.getEmployeeMapByUsername("0009785");
 			log.info(employeeMap.toString());
 		});
@@ -107,7 +117,7 @@ public class XmlTests {
 
 	@Test
 	public void testMapUsernameToEmployeeByUserRealName(){
-		this.handle(mapper -> {
+		this.handleEmployee(mapper -> {
 			Map<String, Employee> employeeMap = mapper.mapUsernameToEmployeeByUserRealName("%a%");
 			employeeMap.entrySet().forEach(entry -> log.info(entry.toString()));
 		});
@@ -115,7 +125,7 @@ public class XmlTests {
 
 	@Test
 	public void testGetEmployeeByUsernameUsingResultMap(){
-		this.handle(mapper -> {
+		this.handleEmployee(mapper -> {
 			Employee employee = mapper.getEmployeeByUsernameUsingResultMap("0009785");
 			log.info(employee.toString());
 		});
@@ -123,19 +133,27 @@ public class XmlTests {
 
 	@Test
 	public void testFindWithDepartmentByUserRealNameUsingResultMap(){
-		this.handle(mapper -> mapper.findWithDepartmentByUserRealNameUsingResultMap("%a%")
+		this.handleEmployee(mapper -> mapper.findWithDepartmentByUserRealNameUsingResultMap("%a%")
 				.forEach(employee -> log.info(employee.toString())));
 	}
 
 	@Test
 	public void testFindWithDepartmentByUserRealNameUsingResultMapBy2Steps(){
-		this.handle(mapper -> mapper.findWithDepartmentByUserRealNameUsingResultMapBy2Steps("%a%")
+		this.handleEmployee(mapper -> mapper.findWithDepartmentByUserRealNameUsingResultMapBy2Steps("%a%")
 				.forEach(employee -> log.info(employee.toString())));
 	}
 
     @Test
     public void testFindWithDepartmentByUserRealNameUsingResultMapBy2StepsWithLazyLoad(){
-        this.handle(mapper -> mapper.findWithDepartmentByUserRealNameUsingResultMapBy2Steps("%a%")
+        this.handleEmployee(mapper -> mapper.findWithDepartmentByUserRealNameUsingResultMapBy2Steps("%a%")
                 .forEach(employee -> log.info(employee.getUsername())));
+    }
+
+    @Test
+    public void testGetDepartmentWithEmployeesByCode(){
+        this.handleDepartment(mapper -> {
+            Department department = mapper.getDepartmentWithEmployeesByCode("D0001");
+            log.info(department.toString());
+        });
     }
 }

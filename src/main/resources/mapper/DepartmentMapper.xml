@@ -3,7 +3,36 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.walter.mapper.DepartmentMapperByXml">
+
+    <resultMap id="departmentWithEmployeesResultMap" type="com.walter.domain.Department">
+        <id column="did" property="id"/>
+        <result column="dept_code" property="code"/>
+        <result column="dept_name" property="name"/>
+        <collection property="employeeList" ofType="com.walter.domain.Employee">
+            <id column="eid" property="id"/>
+            <result column="username" property="username"/>
+            <result column="user_real_name" property="userRealName"/>
+            <result column="gender" property="gender"/>
+            <result column="email" property="email"/>
+        </collection>
+    </resultMap>
+
     <select id="getDepartmentByCode" resultType="com.walter.domain.Department">
         select * from department where code = #{xxx}
+    </select>
+
+    <select id="getDepartmentWithEmployeesByCode" resultMap="departmentWithEmployeesResultMap">
+        select
+            d.id did,
+            d.code dept_code,
+            d.name dept_name,
+            e.id eid,
+            e.username,
+            e.user_real_name,
+            e.gender,
+            e.email
+        from department d left join employee e
+        on d.code = e.dept_code
+        where d.code = #{xxx}
     </select>
 </mapper>
