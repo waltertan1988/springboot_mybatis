@@ -156,4 +156,12 @@ public class XmlTests {
             log.info(department.toString());
         });
     }
+
+    @Test
+    public void testGetDepartmentWithEmployeesByCodeUsingResultMapBy2Steps(){
+        this.handleDepartment(mapper -> {
+            Department department = mapper.getDepartmentWithEmployeesByCodeUsingResultMapBy2Steps("D0001");
+            log.info(department.toString());
+        });
+    }
 }

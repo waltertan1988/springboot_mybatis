@@ -7,4 +7,6 @@ public interface DepartmentMapperByXml {
     Department getDepartmentByCode(String code);
 
     Department getDepartmentWithEmployeesByCode(String code);
+
+    Department getDepartmentWithEmployeesByCodeUsingResultMapBy2Steps(String code);
 }

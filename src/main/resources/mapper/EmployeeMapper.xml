@@ -124,4 +124,8 @@
         WHERE e.dept_code = d.code
         AND user_real_name like #{xxx}
     </select>
+
+    <select id="findByDepartmentCode" resultType="com.walter.domain.Employee">
+        select * from EMPLOYEE where dept_code = #{xxx}
+    </select>
 </mapper>
