@@ -11,6 +11,13 @@
         <!--column可以自动封装，不用指定-->
     </resultMap>
 
+    <resultMap id="employeeWithDepartmentResultMap" type="com.walter.domain.Employee">
+        <id column="eid" property="id"/>
+        <result column="dept_id" property="department.id"/>
+        <result column="dept_code" property="department.code"/>
+        <result column="dept_name" property="department.name"/>
+    </resultMap>
+
     <select id="getEmployeeByUsernameUsingResultMap" resultMap="employeeResultMap">
         select * from EMPLOYEE where username = #{xxx}
     </select>
@@ -73,5 +80,20 @@
 
     <select id="mapUsernameToEmployeeByUserRealName" resultType="map">
         select * from EMPLOYEE where user_real_name like #{xxx}
+    </select>
+
+    <select id="findWithDepartmentByUserRealNameUsingResultMap" resultMap="employeeWithDepartmentResultMap">
+        SELECT
+            e.id eid,
+            e.username,
+            e.user_real_name,
+            e.gender,
+            e.email,
+            e.dept_code,
+            d.id dept_id,
+            d.name dept_name
+        FROM employee e, department d
+        WHERE e.dept_code = d.code
+        AND user_real_name like #{xxx}
     </select>
 </mapper>

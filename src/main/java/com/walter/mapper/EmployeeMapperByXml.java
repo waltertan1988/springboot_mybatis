@@ -29,4 +29,6 @@ public interface EmployeeMapperByXml {
     Map<String, Employee> mapUsernameToEmployeeByUserRealName(String userRealName);
 
     Employee getEmployeeByUsernameUsingResultMap(String username);
+
+    List<Employee> findWithDepartmentByUserRealNameUsingResultMap(String userRealName);
 }

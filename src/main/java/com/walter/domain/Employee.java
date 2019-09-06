@@ -15,4 +15,5 @@ public class Employee extends BaseDomain{
     private String userRealName;
     private char gender;
     private String email;
+    private Department department;
 }

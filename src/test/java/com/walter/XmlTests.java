@@ -57,7 +57,7 @@ public class XmlTests {
 
     @Test
     public void testAddOne(){
-		Employee employee = new Employee("0008792", "CathyChen",'M',"Cathy.Chen@xxx.com");
+		Employee employee = new Employee("0008792", "CathyChen",'M',"Cathy.Chen@xxx.com", null);
 		this.handle(mapper -> {
 			Long num = mapper.addOne(employee);
 			log.info(num.toString());
@@ -67,7 +67,7 @@ public class XmlTests {
 
 	@Test
 	public void testUpdateOneByUsername(){
-		Employee employee = new Employee("0008792", "Cathy Chen",'F',"Cathy.Chen@infinitus.com.cn");
+		Employee employee = new Employee("0008792", "Cathy Chen",'F',"Cathy.Chen@infinitus.com.cn", null);
 		this.handle(mapper -> {
 			Boolean success = mapper.updateOneByUsername(employee);
 			log.info(success.toString());
@@ -118,6 +118,13 @@ public class XmlTests {
 		this.handle(mapper -> {
 			Employee employee = mapper.getEmployeeByUsernameUsingResultMap("0009785");
 			log.info(employee.toString());
+		});
+	}
+
+	@Test
+	public void testFindWithDepartmentByUserRealNameUsingResultMap(){
+		this.handle(mapper -> {
+			mapper.findWithDepartmentByUserRealNameUsingResultMap("%a%").forEach(employee -> log.info(employee.toString()));
 		});
 	}
 }
