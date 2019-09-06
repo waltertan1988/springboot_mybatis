@@ -112,4 +112,12 @@ public class XmlTests {
 			employeeMap.entrySet().forEach(entry -> log.info(entry.toString()));
 		});
 	}
+
+	@Test
+	public void testGetEmployeeByUsernameUsingResultMap(){
+		this.handle(mapper -> {
+			Employee employee = mapper.getEmployeeByUsernameUsingResultMap("0009785");
+			log.info(employee.toString());
+		});
+	}
 }

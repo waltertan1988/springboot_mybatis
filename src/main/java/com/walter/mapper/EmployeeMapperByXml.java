@@ -27,4 +27,6 @@ public interface EmployeeMapperByXml {
 
     @MapKey("username")
     Map<String, Employee> mapUsernameToEmployeeByUserRealName(String userRealName);
+
+    Employee getEmployeeByUsernameUsingResultMap(String username);
 }

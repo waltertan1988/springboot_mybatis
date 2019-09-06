@@ -3,6 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.walter.mapper.EmployeeMapperByXml">
+
+    <resultMap id="employeeResultMap" type="com.walter.domain.Employee">
+        <!--通过resultMap定义封装规则，因此可以无须开启驼峰命名转换的设置-->
+        <id column="id" property="id"/>
+        <result column="user_real_name" property="userRealName"/>
+        <!--column可以自动封装，不用指定-->
+    </resultMap>
+
+    <select id="getEmployeeByUsernameUsingResultMap" resultMap="employeeResultMap">
+        select * from EMPLOYEE where username = #{xxx}
+    </select>
+
     <select id="getEmployeeById" resultType="com.walter.domain.Employee">
         select * from EMPLOYEE where id = #{xxx}
     </select>
