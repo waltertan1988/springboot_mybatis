@@ -132,4 +132,10 @@ public class XmlTests {
 		this.handle(mapper -> mapper.findWithDepartmentByUserRealNameUsingResultMapBy2Steps("%a%")
 				.forEach(employee -> log.info(employee.toString())));
 	}
+
+    @Test
+    public void testFindWithDepartmentByUserRealNameUsingResultMapBy2StepsWithLazyLoad(){
+        this.handle(mapper -> mapper.findWithDepartmentByUserRealNameUsingResultMapBy2Steps("%a%")
+                .forEach(employee -> log.info(employee.getUsername())));
+    }
 }

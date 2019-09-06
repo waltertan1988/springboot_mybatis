@@ -27,7 +27,7 @@
 
     <resultMap id="employeeWithDepartmentResultMapBy2Steps" type="com.walter.domain.Employee">
         <id column="eid" property="id"/>
-        <!--使用association的分步查询， select="<子对象mapper命名空间>.<mapperid>", column指定关联查询列-->
+        <!--使用association的分步查询(可以使用延迟加载特性)， select="<子对象mapper命名空间>.<mapperid>", column指定关联查询列-->
         <association property="department" select="com.walter.mapper.DepartmentMapperByXml.getDepartmentByCode" column="dept_code"/>
     </resultMap>
 
