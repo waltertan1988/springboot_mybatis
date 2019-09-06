@@ -16,6 +16,13 @@
         <result column="dept_id" property="department.id"/>
         <result column="dept_code" property="department.code"/>
         <result column="dept_name" property="department.name"/>
+        <!-- 使用association标签，等价于使用上面的关联属性
+        <association property="department" javaType="com.walter.domain.Department">
+            <id column="dept_id" property="id"/>
+            <result column="dept_code" property="code"/>
+            <result column="dept_name" property="name"/>
+        </association>
+        -->
     </resultMap>
 
     <select id="getEmployeeByUsernameUsingResultMap" resultMap="employeeResultMap">
