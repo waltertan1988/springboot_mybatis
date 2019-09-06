@@ -58,4 +58,8 @@
     <select id="getEmployeeMapByUsername" resultType="map">
         select * from EMPLOYEE where username = #{xxx}
     </select>
+
+    <select id="mapUsernameToEmployeeByUserRealName" resultType="map">
+        select * from EMPLOYEE where user_real_name like #{xxx}
+    </select>
 </mapper>

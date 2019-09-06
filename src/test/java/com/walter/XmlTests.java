@@ -104,4 +104,12 @@ public class XmlTests {
 			log.info(employeeMap.toString());
 		});
 	}
+
+	@Test
+	public void testMapUsernameToEmployeeByUserRealName(){
+		this.handle(mapper -> {
+			Map<String, Employee> employeeMap = mapper.mapUsernameToEmployeeByUserRealName("%a%");
+			employeeMap.entrySet().forEach(entry -> log.info(entry.toString()));
+		});
+	}
 }

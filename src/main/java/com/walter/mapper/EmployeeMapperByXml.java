@@ -1,6 +1,7 @@
 package com.walter.mapper;
 
 import com.walter.domain.Employee;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public interface EmployeeMapperByXml {
     List<Employee> findByUserRealName(String userRealName);
 
     Map<String, Object> getEmployeeMapByUsername(String username);
+
+    @MapKey("username")
+    Map<String, Employee> mapUsernameToEmployeeByUserRealName(String userRealName);
 }
