@@ -50,4 +50,12 @@
     <select id="isIdMatchUsername" resultType="Boolean">
         select count(1) from EMPLOYEE where id = #{id} and username = #{username}
     </select>
+
+    <select id="findByUserRealName" resultType="com.walter.domain.Employee">
+        select * from EMPLOYEE where user_real_name like #{userRealName}
+    </select>
+
+    <select id="getEmployeeMapByUsername" resultType="map">
+        select * from EMPLOYEE where username = #{xxx}
+    </select>
 </mapper>

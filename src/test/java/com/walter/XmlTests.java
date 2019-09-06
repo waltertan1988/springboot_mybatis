@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Map;
 import java.util.function.Consumer;
 
 @RunWith(SpringRunner.class)
@@ -86,6 +87,21 @@ public class XmlTests {
 		this.handle(mapper -> {
 			Boolean isIdMatchUsername = mapper.isIdMatchUsername(1L, "0009785");
 			log.info(isIdMatchUsername.toString());
+		});
+	}
+
+	@Test
+	public void testFindByUserRealName(){
+		this.handle(mapper -> {
+			mapper.findByUserRealName("%a%").forEach(employee -> log.info(employee.toString()));
+		});
+	}
+
+	@Test
+	public void testGetEmployeeMapById(){
+		this.handle(mapper -> {
+			Map<String, Object> employeeMap = mapper.getEmployeeMapByUsername("0009785");
+			log.info(employeeMap.toString());
 		});
 	}
 }
