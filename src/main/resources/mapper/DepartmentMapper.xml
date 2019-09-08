@@ -25,7 +25,7 @@
     </resultMap>
 
     <select id="getDepartmentByCode" resultType="com.walter.domain.Department">
-        select * from department where code = #{xxx}
+        select * from department where code = #{code}
     </select>
 
     <select id="getDepartmentWithEmployeesByCode" resultMap="departmentWithEmployeesResultMap">
