@@ -132,4 +132,25 @@
     <select id="findByDepartmentCode" resultType="com.walter.domain.Employee">
         select * from EMPLOYEE where dept_code = #{xxx}
     </select>
+
+    <select id="findByConditionIf" resultType="com.walter.domain.Employee">
+        select * from EMPLOYEE
+        where 1=1
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="username != null and username.trim() !=''">
+            and username = #{username}
+        </if>
+        <if test="userRealName != null &amp;&amp; userRealName.trim() != &quot;&quot;">
+            <bind name="patternUserRealName" value="'%' + userRealName + '%'"/>
+            and user_real_name like #{patternUserRealName}
+        </if>
+        <if test="gender =='M' or gender == 'F'">
+            and gender = #{gender}
+        </if>
+        <if test="email != null and email.trim() !=''">
+            and email = #{email}
+        </if>
+    </select>
 </mapper>

@@ -35,4 +35,6 @@ public interface EmployeeMapperByXml {
     List<Employee> findWithDepartmentByUserRealNameUsingResultMapBy2Steps(String userRealName);
 
     List<Employee> findByDepartmentCode(String departmentCode);
+
+    List<Employee> findByConditionIf(Employee condition);
 }

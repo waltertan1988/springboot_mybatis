@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -164,4 +165,13 @@ public class XmlTests {
             log.info(department.toString());
         });
     }
+
+    @Test
+    public void testFindByConditionIf(){
+		this.handleEmployee(mapper -> {
+			Employee condition = new Employee("0009785","Walter",'M',null, null);
+			List<Employee> employees = mapper.findByConditionIf(condition);
+			employees.forEach(employee -> log.info(employee.toString()));
+		});
+	}
 }
