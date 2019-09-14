@@ -47,10 +47,14 @@
         select * from EMPLOYEE where username = #{xyz}
     </select>
 
+    <sql id="insertColumns">
+        <if test="${hasId}==true">id, </if>username, user_real_name, gender, email
+    </sql>
+
     <!--<insert id="addOne" parameterType="com.walter.domain.Employee">  parameterType可省略-->
     <insert id="addOne" useGeneratedKeys="true" keyProperty="id" databaseId="mysql">
         <!--useGeneratedKeys结合keyProperty，让主键自增值自动回填到Employee对象id属性。（注：自增不适用于Oracle）-->
-        insert into EMPLOYEE(username, user_real_name, gender, email)
+        insert into EMPLOYEE(<include refid="insertColumns"><property name="hasId" value="false"/></include>)
         values (#{username}, #{userRealName}, #{gender}, #{email})
     </insert>
 
@@ -59,7 +63,7 @@
         <selectKey keyProperty="id" order="BEFORE" resultType="Integer">
             select SEQ_EMPLOYEE_ID.nextval from dual
         </selectKey>
-        insert into EMPLOYEE(id, username, user_real_name, gender, email)
+        insert into EMPLOYEE(id, <include refid="insertColumns"/>)
         values (#{id}, #{username}, #{userRealName}, #{gender}, #{email})
 
         <!-- 上面等价于下面的写法
