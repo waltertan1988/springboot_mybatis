@@ -186,4 +186,16 @@
         </set>
         where username = #{username}
     </update>
+
+    <select id="findByUsernamesWithConditionForeach" resultType="com.walter.domain.Employee">
+        select * from EMPLOYEE where username in
+        <!--
+            collection: List对象默认用list代替作为键；数组对象用array代替作为键；Map对象没有默认的键，由自己设置。
+            如果遍历的是List，则index表示集合元素的下标, item表示集合元素本身。
+            如果遍历的是Map，则index表示集合元素的key, item表示集合元素的value。
+        -->
+        <foreach collection="list" item="username" separator="," open="(" close=")" index="index">
+            #{username}
+        </foreach>
+    </select>
 </mapper>

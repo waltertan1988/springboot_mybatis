@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -193,5 +194,12 @@ public class XmlTests {
 			Long count = mapper.updateEmployeeByCondition(condition);
 			log.info(count.toString());
 		});
+	}
+
+	@Test
+	public void testFindByUsernamesWithConditionForeach(){
+		this.handleEmployee(mapper -> mapper.findByUsernamesWithConditionForeach(Arrays.asList("0009785","0008792"))
+				.forEach(employee -> log.info(employee.toString()))
+		);
 	}
 }

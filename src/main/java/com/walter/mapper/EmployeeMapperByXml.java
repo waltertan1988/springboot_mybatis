@@ -41,4 +41,6 @@ public interface EmployeeMapperByXml {
     List<Employee> findByConditionIf(Employee condition);
 
     List<Employee> findByConditionChoose(Employee condition);
+
+    List<Employee> findByUsernamesWithConditionForeach(List<String> usernames);
 }
