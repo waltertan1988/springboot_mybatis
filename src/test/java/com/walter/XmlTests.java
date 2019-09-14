@@ -174,4 +174,15 @@ public class XmlTests {
 			employees.forEach(employee -> log.info(employee.toString()));
 		});
 	}
+
+	@Test
+	public void testFindByConditionChoose(){
+        this.handleEmployee(mapper -> {
+            Employee condition = new Employee();
+//            condition.setId(1L);
+//            condition.setUsername("0008792");
+            List<Employee> employees = mapper.findByConditionChoose(condition);
+            employees.forEach(employee -> log.info(employee.toString()));
+        });
+    }
 }

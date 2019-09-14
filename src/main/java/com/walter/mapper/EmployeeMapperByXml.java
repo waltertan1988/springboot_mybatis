@@ -37,4 +37,6 @@ public interface EmployeeMapperByXml {
     List<Employee> findByDepartmentCode(String departmentCode);
 
     List<Employee> findByConditionIf(Employee condition);
+
+    List<Employee> findByConditionChoose(Employee condition);
 }

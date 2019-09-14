@@ -153,4 +153,21 @@
             and email = #{email}
         </if>
     </select>
+
+    <select id="findByConditionChoose" resultType="com.walter.domain.Employee">
+        select * from EMPLOYEE
+        <where><!--<where>能自动判别并去掉where子句中的第一个and/or-->
+            <choose>
+                <when test="id != null">
+                    id = #{id}
+                </when>
+                <when test="username != null and username.trim() != ''">
+                    username = #{username}
+                </when>
+                <otherwise>
+                    1 = 1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
 </mapper>
