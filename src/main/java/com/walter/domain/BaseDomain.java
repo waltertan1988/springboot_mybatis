@@ -2,7 +2,12 @@ package com.walter.domain;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class BaseDomain {
+/**
+ * 使用二级缓存，要对POJO实现Serializable接口
+ */
+public class BaseDomain implements Serializable {
     protected Long id;
 }

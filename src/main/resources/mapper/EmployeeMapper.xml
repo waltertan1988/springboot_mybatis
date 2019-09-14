@@ -3,6 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.walter.mapper.EmployeeMapperByXml">
+    <!-- 配置二级缓存(namespace级别，且在SqlSession关闭时会写入二级缓存，被缓存的domain类要实现java.io.Serializable接口)
+        eviction: 回收策略，默认LRU
+            LRU – 最近最少使用的:移除最长时间不被使用的对象。
+            FIFO – 先进先出:按对象进入缓存的顺序来移除它们。
+            SOFT – 软引用:移除基于垃圾回收器状态和软引用规则的对象。
+            WEAK – 弱引用:更积极地移除基于垃圾收集器状态和弱引用规则的对象。
+
+        flushInterval: 自动刷新时间(ms)
+
+        readOnly: true|false
+            只读的缓存会给所有调用者返回缓存对象的相同实例，因此这些对象不能被修改，这提供了很重要的性能优势。
+            可读写的缓存会返回缓存对象的拷贝(通过序列化)，这会慢一些，但是安全，因此默认是false。
+
+        size: 最多缓存引用对象数目
+
+        type：自定义缓存类的全限定名，该类要实现org.apache.ibatis.cache.Cache接口
+    -->
+    <cache eviction="LRU" flushInterval="60000" readOnly="false" size="1024"/>
 
     <resultMap id="employeeResultMap" type="com.walter.domain.Employee">
         <!--通过resultMap定义封装规则，因此可以无须开启驼峰命名转换的设置-->

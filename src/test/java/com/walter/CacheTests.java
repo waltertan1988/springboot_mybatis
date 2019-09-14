@@ -1,7 +1,9 @@
 package com.walter;
 
 import com.walter.domain.Department;
+import com.walter.domain.Employee;
 import com.walter.mapper.DepartmentMapperByXml;
+import com.walter.mapper.EmployeeMapperByXml;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -31,6 +33,7 @@ public class CacheTests {
 
     /**
      * 一级缓存（Session级别），默认一直开启
+     * （模拟时，请先关闭二级缓存）
      */
     @Test
     public void testFirstCache(){
@@ -72,5 +75,21 @@ public class CacheTests {
         Assert.assertTrue(department2 != department1 && department2.equals(department1));
 
         sqlSession.close();
+    }
+
+    @Test
+    public void testSecondCache(){
+        final String USER_NAME = "0009785";
+
+        SqlSession sqlSession = null;
+        sqlSession = sqlSessionFactory.openSession();
+        Employee employee1 = sqlSession.getMapper(EmployeeMapperByXml.class).getEmployeeByUsername(USER_NAME); // 发SQL
+        sqlSession.close(); //sqlSession关闭时写入二级缓存
+
+        sqlSession = sqlSessionFactory.openSession();
+        Employee employee2 = sqlSession.getMapper(EmployeeMapperByXml.class).getEmployeeByUsername(USER_NAME); // 不发SQL
+        sqlSession.close();
+
+        Assert.assertTrue(employee2 != employee1 && employee2.equals(employee1));
     }
 }
