@@ -156,19 +156,28 @@
 
     <select id="findByConditionChoose" resultType="com.walter.domain.Employee">
         select * from EMPLOYEE
-        <where><!--<where>能自动判别并去掉where子句中的第一个and/or-->
-            <choose>
-                <when test="id != null">
-                    id = #{id}
-                </when>
-                <when test="username != null and username.trim() != ''">
-                    username = #{username}
-                </when>
-                <otherwise>
-                    1 = 1
-                </otherwise>
-            </choose>
-        </where>
+        <if test="_parameter != null">
+            <!--
+                _parameter:代表整个参数
+                    单个参数：_parameter就是这个参数
+                    多个参数：参数会被封装为一个map:_parameter就是代表这个map
+                _databaseId:如果配置了databaseIdProvider标签，则_databaseId 就是代表当前数据库的别名
+            -->
+            <where>
+                <!--<where>能自动判别并去掉where子句中的第一个and/or-->
+                <choose>
+                    <when test="id != null">
+                        id = #{id}
+                    </when>
+                    <when test="username != null and username.trim() != ''">
+                        username = #{username}
+                    </when>
+                    <otherwise>
+                        1 = 1
+                    </otherwise>
+                </choose>
+            </where>
+        </if>
     </select>
 
     <update id="updateEmployeeByCondition">
@@ -194,7 +203,7 @@
             如果遍历的是List，则index表示集合元素的下标, item表示集合元素本身。
             如果遍历的是Map，则index表示集合元素的key, item表示集合元素的value。
         -->
-        <foreach collection="list" item="username" separator="," open="(" close=")" index="index">
+        <foreach collection="listfindByConditionChoose" item="username" separator="," open="(" close=")" index="index">
             #{username}
         </foreach>
     </select>

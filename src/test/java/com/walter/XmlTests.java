@@ -187,6 +187,14 @@ public class XmlTests {
         });
     }
 
+	@Test
+	public void testFindByConditionChooseWithInnerParameters(){
+		this.handleEmployee(mapper -> {
+			List<Employee> employees = mapper.findByConditionChoose(null);
+			employees.forEach(employee -> log.info(employee.toString()));
+		});
+	}
+
     @Test
     public void testUpdateEmployeeByCondition(){
 		this.handleEmployee(mapper -> {
