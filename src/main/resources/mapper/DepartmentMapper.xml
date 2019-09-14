@@ -24,6 +24,10 @@
         <collection property="employeeList" select="com.walter.mapper.EmployeeMapperByXml.findByDepartmentCode" column="code"/>
     </resultMap>
 
+    <select id="getDepartmentById" resultType="com.walter.domain.Department">
+        select * from department where id = #{xxx}
+    </select>
+
     <select id="getDepartmentByCode" resultType="com.walter.domain.Department">
         select * from department where code = #{code}
     </select>
@@ -46,4 +50,8 @@
     <select id="getDepartmentWithEmployeesByCodeUsingResultMapBy2Steps" resultMap="departmentWithEmployeesResultMapBy2Steps">
         select * from department where code = #{xxx}
     </select>
+
+    <delete id="deleteByCode">
+        delete from department where code = #{xxx}
+    </delete>
 </mapper>
