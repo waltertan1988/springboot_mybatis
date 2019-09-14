@@ -185,4 +185,13 @@ public class XmlTests {
             employees.forEach(employee -> log.info(employee.toString()));
         });
     }
+
+    @Test
+    public void testUpdateEmployeeByCondition(){
+		this.handleEmployee(mapper -> {
+			Employee condition = new Employee("0008792", "Cathy Chen", 'F', "Cathy.Chen@infinitus.com.cn", null);
+			Long count = mapper.updateEmployeeByCondition(condition);
+			log.info(count.toString());
+		});
+	}
 }

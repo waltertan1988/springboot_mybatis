@@ -17,6 +17,8 @@ public interface EmployeeMapperByXml {
 
     Boolean updateOneByUsername(Employee employee);
 
+    Long updateEmployeeByCondition(Employee conditon);
+
     Integer deleteOneByUsername(String username);
 
     Boolean isIdMatchUsername(@Param("id") Long id, @Param("username") String username);

@@ -170,4 +170,20 @@
             </choose>
         </where>
     </select>
+
+    <update id="updateEmployeeByCondition">
+        update EMPLOYEE
+        <set>
+            <if test="userRealName != null and userRealName.trim() != ''">
+                user_real_name = #{userRealName},
+            </if>
+            <if test="gender == 'M' or gender == 'F'">
+                gender = #{gender},
+            </if>
+            <if test="email != null and email.trim() != ''">
+                email = #{email},
+            </if>
+        </set>
+        where username = #{username}
+    </update>
 </mapper>
