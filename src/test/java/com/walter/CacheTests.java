@@ -49,8 +49,12 @@ public class CacheTests {
             Department department3 = mapper.getDepartmentById(ID); //同一SqlSession的不同条件的查询，发SQL
             Assert.assertTrue(department3 != department1 && department3.equals(department1));
 
+            /*
+             * 同一SqlSession的同一条件的查询，但前面执行了增删改操作，发SQL。
+             * 因为<insert><delete><update>中的flushCache默认为true，表示执行insert/delete/update后会清掉一、二级缓存。
+             */
             mapper.deleteByCode("XXXXX");
-            Department department4 = mapper.getDepartmentByCode(DEPT_CODE); //同一SqlSession的同一条件的查询，但前面执行了增删改操作，发SQL
+            Department department4 = mapper.getDepartmentByCode(DEPT_CODE);
             Assert.assertTrue(department4 != department1 && department4.equals(department1));
 
             this.handleDepartment(mapper2 -> {
